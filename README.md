@@ -11,7 +11,7 @@
 
 ![](https://github.com/KXCY-AI/AI-Case-Studies/blob/main/img/cs.png)
 ## 1. 基于神经网络的垃圾分类（智能环保领域）
-**项目概述：** 垃圾分类（Garbage Classification），指按一定规定或标准将垃圾分类储存、投放和搬运，转变成公共资源的一系列活动。提高垃圾资源价值，减少垃圾处理量，降低处理成本，减少土地消耗，具有社会、经济、生态等多方面的效益。然而让大部分人正确区分垃圾类别并不容易。本案例使用2,000张以上的生活垃圾图片，基于TensorFlow搭建深度学习模型，建立CNN卷积神经网络实现智能垃圾分类。
+**项目概述：** 垃圾分类（Garbage Classification），指按一定规定或标准将垃圾分类储存、投放和搬运，转变成公共资源的一系列活动。提高垃圾资源价值，减少垃圾处理量，降低处理成本，减少土地消耗，具有社会、经济、生态等多方面的效益。然而让大部分人正确区分垃圾类别并不容易。本案例使用 2,000 张以上的生活垃圾图片，基于 TensorFlow 搭建深度学习模型，建立 CNN 卷积神经网络实现智能垃圾分类。
 - [案例说明](https://github.com/KXCY-AI/AI-Case-Studies/blob/main/%E5%9F%BA%E4%BA%8E%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%9E%83%E5%9C%BE%E5%88%86%E7%B1%BB/README.md)
 - [案例演示视频](https://www.bilibili.com/video/BV16y4y1n7rK)
 - [案例代码 Notebook](https://github.com/KXCY-AI/AI-Case-Studies/blob/main/%E5%9F%BA%E4%BA%8E%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%9E%83%E5%9C%BE%E5%88%86%E7%B1%BB/%E5%9F%BA%E4%BA%8E%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%9E%83%E5%9C%BE%E5%88%86%E7%B1%BB.ipynb)
