@@ -68,6 +68,13 @@ train_datagen = ImageDataGenerator(
 以下为采用数据扩充策略后的效果图 ——
 
 ![](./img/datagen.png)
+## 构建sequential模型
+keras中的主要数据结构是model（模型），它提供定义完整计算图的方法。通过将图层添加到现有模型/计算图，我们可以构建出复杂的神经网络。Keras有两种不同的构建模型的方法：
+
+1. Sequential models
+2. Functional API
+
+Sequential 模型字面上的翻译是顺序模型，给人的第一感觉是那种简单的线性模型，但实际上 Sequential 模型可以构建非常复杂的神经网络，包括全连接神经网络、卷积神经网络(CNN)、循环神经网络(RNN)、等等。这里的 Sequential 更准确的应该理解为堆叠，通过堆叠许多层，构建出深度神经网络。
 
 原创制作：广州跨象乘云软件技术有限公司（版权所有，不得转载）
 
