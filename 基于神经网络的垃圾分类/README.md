@@ -3,7 +3,7 @@
 
 垃圾分类，一般是指按一定规定或标准将垃圾分类储存、分类投放和分类搬运，从而转变成公共资源的一系列活动的总称。分类的目的是提高垃圾的资源价值和经济价值，力争物尽其用。垃圾分为四类，分别是：有害垃圾、厨余垃圾、可回收物和其他垃圾，其对应的垃圾桶颜色分别是红、绿、蓝、黑。
 
-本次项目使用的数据集包括硬纸板、玻璃制品、金属、纸制品、塑料和废物垃圾等 6 种常见的生活垃圾共计 2,247 张。项目分为三部分。数据处理、模型建立和模型测试。经过迭代模型在训练集上准确率达到 89.89% 左右，在验证集上准确率达到 77.68% 左右。
+本次项目使用的数据集包括硬纸板、玻璃制品、金属、纸制品、塑料和废物垃圾等 6 种常见的生活垃圾共计 `2,247` 张。项目分为三部分。数据处理、模型建立和模型测试。经过迭代模型在训练集上准确率达到 `89.89%` 左右，在验证集上准确率达到 `77.68%` 左右。
 
 本案例适合作为深度学习实践课程配套教学案例，能够达到以下教学效果：
 
@@ -28,7 +28,7 @@
 
 因此，在本案例中，我们直接使用 tf.keras 进行 TensorFlow 神经网络的构造：
 
-```tensorflow
+```python
 from tensorflow.keras.preprocessing.image import ImageDataGenerator, load_img, img_to_array, array_to_img
 from tensorflow.keras.layers import Conv2D, Flatten, MaxPooling2D, Dense
 from tensorflow.keras.models import Sequential
@@ -38,6 +38,11 @@ from tensorflow.keras.models import model_from_json
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.optimizers import SGD
 ```
+## 数据处理与数据扩充
+本案例中，我们采用了一份样本非常小的数据集进行垃圾图像分类模型的训练
+
+采用极少量的数据集进行图像分类模型训练，
+
 
 
 原创制作：广州跨象乘云软件技术有限公司（版权所有，不得转载）
