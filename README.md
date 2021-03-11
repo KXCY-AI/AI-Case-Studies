@@ -15,9 +15,3 @@
 - [案例说明](https://github.com/KXCY-AI/AI-Case-Studies/blob/main/%E5%9F%BA%E4%BA%8E%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%9E%83%E5%9C%BE%E5%88%86%E7%B1%BB/README.md)
 - [案例演示视频](https://www.bilibili.com/video/BV16y4y1n7rK)
 - [案例代码 Notebook](https://github.com/KXCY-AI/AI-Case-Studies/blob/main/%E5%9F%BA%E4%BA%8E%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%9E%83%E5%9C%BE%E5%88%86%E7%B1%BB/%E5%9F%BA%E4%BA%8E%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%9E%83%E5%9C%BE%E5%88%86%E7%B1%BB.ipynb)
-本案例适合作为深度学习实践课程的配套教学案例。通过本案例，能够达到以下教学效果：
-
-- **培养学生利用图像增益实现小样本数据模型训练能力：** 通过对样本图片进行缩放、翻转、选择等操作对样本进行扩充，使得样本数据更加丰富，有利于模型性能的提高。
-- 帮助学生掌握数据绘图实现模型评估：
-- 提高学生深度学习建模的能力：
-READREAD
