@@ -28,7 +28,7 @@
 
 因此，在本案例中，我们直接使用 tf.keras 进行 TensorFlow 神经网络的构造：
 
-```python
+```keras
 from tensorflow.keras.preprocessing.image import ImageDataGenerator, load_img, img_to_array, array_to_img
 from tensorflow.keras.layers import Conv2D, Flatten, MaxPooling2D, Dense
 from tensorflow.keras.models import Sequential
