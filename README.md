@@ -7,7 +7,8 @@
 - **训练模型：** 设置基础设施，选择模型，训练模型并将模型迭代至目标性能指标
 - **部署应用：** 选择符合业务需求的模型部署方式，如：嵌入式边缘计算、分布式、RestFul API 服务接口投入生产。
 
-项目案例演示视频频道（持续更新中...）：https://space.bilibili.com/189064479/channel/detail?cid=142005
+## 精选项目案例演示视频频道（持续更新中...）：
+https://space.bilibili.com/189064479/channel/detail?cid=142005
 
 ![](https://github.com/KXCY-AI/AI-Case-Studies/blob/main/img/cs.png)
 ## 1. 基于神经网络的垃圾分类（智能环保领域）
