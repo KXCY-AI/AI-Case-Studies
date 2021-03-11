@@ -105,6 +105,8 @@ model.summary()
 
 ![](./img/Parameters.PNG)
 
+如果你对如何计算各层参数感兴趣，可以参考[这个帖子](https://stackoverflow.com/questions/44608552/keras-cnn-model-parameters-calculation)。
+
 完整的模型说明可以查阅 Keras 的[文档](https://keras.io/zh/getting-started/sequential-model-guide/)。
 
 原创制作：广州跨象乘云软件技术有限公司（版权所有，不得转载）
