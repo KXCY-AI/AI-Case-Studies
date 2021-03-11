@@ -14,7 +14,7 @@
 
 作为第一个分享案例，我们并不大打算从一开始就聚焦于编码细节或者数学公式，而是希望通过本案例，向大家介绍相关技术的历史及背景知识。
 
-## 案例依赖库
+## 1. 案例依赖库
 本案例主要采用 tf.keras 进行 TensorFlow 深度神经网络模型构建。Keras 最初是由 Google AI 开发人员/研究人员 Francois Chollet 创建并开发的。Francois 于 2015 年 3 月 27 日将 Keras 的第一个版本 commit 并 release 到他的 [GitHub](https://github.com/fchollet)。一开始，Francois 开发 Keras 是为了方便他自己的研究和实验。但是，随着深度学习的普及，许多开发人员、程序员和机器学习从业人员都因其易于使用的 API 而涌向 Keras。
 
 同时，为了训练自己自定义的神经网络，Keras 需要一个后端。后端是一个计算引擎——它可以构建网络的图和拓扑结构，运行优化器，并执行具体的数字运算。要理解后端的概念，可以试想你需要从头开始构建一个网站。你可以使用 PHP 编程语言和 SQL 数据库。这个 SQL 数据库就是是后端。你可以使用 MySQL，PostgreSQL 或者 SQL Server 作为你的数据库；但是，用于与数据库交互的 PHP 代码是不会变的。PHP 并不关心正在使用哪个数据库，只要它符合 PHP 的规则即可。Keras 也是如此。你可以把后台看作是你的数据库，Keras 是你用来访问数据库的编程语言。你可以把后端替换成任何你喜欢的后端，只要它遵守某些规则，你的代码就不需要更改。因此，你可以把 Keras 看作是一组用来简化深度学习操作的封装（Abstraction）。在 v1.1.0 之前，Keras 的默认后端都是 Theano。与此同时，Google 发布了 TensorFlow，这是一个用于机器学习和神经网络训练的符号数学库。Keras 开始支持 TensorFlow 作为后端。渐渐地，TensorFlow 成为最受欢迎的后端，这也就使得 TensorFlow 从 Keras v1.1.0 发行版开始成为 Keras 的默认后端。
@@ -40,7 +40,7 @@ from tensorflow.keras.models import model_from_json
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.optimizers import SGD
 ```
-## 数据处理与数据扩充
+## 2. 数据处理与数据扩充
 本案例中，我们采用了一份样本非常小的数据集进行垃圾图像分类模型的训练，要获得几百或几千张属于你所感兴趣的类别的训练图像往往不是一件容易的事情。在很多实际使用的情况下，即使是小规模的数据集合也可能是非常昂贵的，有时近乎无法获得（例如：在医学图像领域）。能够最大限度利用非常少的数据是一个称职的数据科学家的关键技能。在 2014 年左右，Kaggle 开始了猫狗识别的对决（总共用了 25,000 张训练图像），出现了以下声明：
 
 > 在许多年前进行的一项非正式调查中，计算机视觉专家假定，在现有技术状态没有出现大进步的情况下，超过 60% 准确性的分类器将是一个难题。作为参考，一个 60% 的分类器将一个 12 张图像的 HIP 的猜测概率从 1/4096 提高到 1/459。当前文献表明，在这项任务上，机器分类器可以取得高于 80% 的准确性。[原文](http://xenon.stanford.edu/~pgolle/papers/dogcat.pdf)
@@ -68,17 +68,30 @@ train_datagen = ImageDataGenerator(
 以下为采用数据扩充策略后的效果图 ——
 
 ![](./img/datagen.png)
-## 构建 sequential 模型
+## 3. 构建 sequential 模型
 keras中的主要数据结构是model（模型），它提供定义完整计算图的方法。通过将图层添加到现有模型/计算图，我们可以构建出复杂的神经网络。Keras有两种不同的构建模型的方法：
 
 1. Sequential models
 2. Functional API
 
-Sequential 模型字面上的翻译是顺序模型，给人的第一感觉是那种简单的线性模型，但实际上 Sequential 模型可以构建非常复杂的神经网络，包括全连接神经网络、卷积神经网络(CNN)、循环神经网络(RNN)、等等。这里的 Sequential 更准确的应该理解为堆叠，通过堆叠许多层，构建出深度神经网络。Sequential 模型的核心操作是添加 layers（图层）。本案例中，我们将一些最流行的图层添加到模型中：
-
-### 添加卷积层
+Sequential 模型字面上的翻译是顺序模型，给人的第一感觉是那种简单的线性模型，但实际上 Sequential 模型可以构建非常复杂的神经网络，包括全连接神经网络、卷积神经网络(CNN)、循环神经网络(RNN)、等等。这里的 Sequential 更准确的应该理解为堆叠，通过堆叠许多层，构建出深度神经网络。Sequential 模型的核心操作是添加 layers（图层）。
+### 3.1 添加卷积层（输入层）
+从我们所学习到的机器学习知识可以知道，机器学习通常包括定义模型、定义优化目标、输入数据、训练模型，最后通常还需要使用测试数据评估模型的性能。keras 中的 Sequential 模型构建也包含这些步骤。首先，网络的第一层是输入层，读取训练数据。为此，我们需要指定为网络提供的训练数据的大小，这里 `input_shape` 参数用于指定输入数据的形状：
 ```python
 model.add(Conv2D(filters=32, kernel_size=3, padding='same', activation='relu', input_shape=(300, 300, 3)))
+```
+上面的代码中，输入层是卷积层，其获取 `300 ，300，3` 的输入图像。本案例中，我们还将一些流行的图层添加到模型中：
+### 3.2 添加最大池化层
+```python
+model.add(MaxPooling2D(pool_size=2))
+```
+### 3.3 添加展平层（Flatten）
+```python
+model.add(Flatten())
+```
+### 3.4 添加全连接层
+```python
+model.add(Dense(64, activation='relu'))
 ```
 完整的模型说明可以查阅 Keras 的[文档](https://keras.io/zh/getting-started/sequential-model-guide/)。
 
