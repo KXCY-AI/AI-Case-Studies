@@ -52,14 +52,16 @@ from tensorflow.keras.optimizers import SGD
 我们在这里使用的数据扩充，就是其中一种最常用的解决小规模数据集进行深度学习的方法。为了充分利用我们的一些训练例子，我们将通过一系列的随机变换『`增强`』它们，从而让我们的模型绝不会两次看到完全相同的图像，这有助于防止过度拟合并帮助模型归一化。
 
 ```python
-    rescale=1. / 255,     # 数据缩放，把像素点的值除以255，使之在0到1之间
-    shear_range=0.1,      # 错切变换角度
-    zoom_range=0.1,       # 随机缩放范围
+train_datagen = ImageDataGenerator(
+    rescale=1. / 255,                # 数据缩放，把像素点的值除以255，使之在0到1之间
+    shear_range=0.1,                 # 错切变换角度
+    zoom_range=0.1,                  # 随机缩放范围
     width_shift_range = 0.1,
     height_shift_range = 0.1,
     horizontal_flip=True,
     vertical_flip = True,
     validation_split = 0.1
+)
 ```
 
 原创制作：广州跨象乘云软件技术有限公司（版权所有，不得转载）
