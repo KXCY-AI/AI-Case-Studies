@@ -107,4 +107,8 @@ model.summary()
 
 如果你对如何计算各层参数感兴趣，可以参考[这个帖子](https://stackoverflow.com/questions/44608552/keras-cnn-model-parameters-calculation)，同时，关于 sequential 模型完整的模型说明可以查阅 Keras 的[文档](https://keras.io/zh/getting-started/sequential-model-guide/)。
 
+### 2.6 模型结构
+
+![](./img/model.h5.png)
+
 原创制作：[广州跨象乘云软件技术有限公司](https://www.080910t.com/)（版权所有，不得转载）
