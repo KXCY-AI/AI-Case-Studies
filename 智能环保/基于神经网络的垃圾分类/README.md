@@ -230,5 +230,15 @@ model = model_from_json(loaded_model_json)          # 结构文件转化为模�
 # 加载权重
 model.load_weights(root_path + '/model_weight.h5')  # h5文件保存模型的权重数据
 ```
+关于 Keras 模型的保存/加载，可以进一步查阅 Keras 文档的[详细说明](https://keras.io/zh/getting-started/faq/#how-can-i-save-a-keras-model)。
+
+### 3.3 模型测试
+
+最后，我们从 test_data 目录下选取训练集以外的图片让模型进行推理预测，测试模型的性能，详情可查看代码。
+
+<img width="150" src="./test_data/cardboard.jpg"/> <img width="150" src="./test_data/glass.jpg"/> <img width="150" src="./test_data/paper.jpg"/> <img width="150" src="./test_data/plastic.jpg"/> <img width="150" src="./test_data/trash.jpg"/>
+
+## 4. 总结
+本案例介绍如何利用数据增强，尽可能的在数据样本量较少的情况下进行深度学习训练。而数据增强仅仅是解决这类困难的其中一种手段，我们还可以使用迁移学习与调优，或者生成模型等技术来进一步更好的解决这个问题。同时，案例演示了如何在 TensorFlow 2.0 上加载 Keras，并利用 Keras 高阶 API 构建 sequential 深度神经网络，并对其进行训练、评估、保存、加载、以及预测推理。从结果显示可以看到，模型的准确率还有待提高，其中一个很主要的原因是数据量比较少（尽管我们已经使用了数据增强等手段），而且从准确率和损失值的变化图可以看到，迭代次数应当适当的提高。我们将提升模型表现的思路留给各位，希望能训练出鲁棒性更强的垃圾分类模型。
 
 原创制作：[广州跨象乘云软件技术有限公司](https://www.080910t.com/)（版权所有，不得转载）
