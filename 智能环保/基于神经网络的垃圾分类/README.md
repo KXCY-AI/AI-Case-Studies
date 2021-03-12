@@ -115,7 +115,46 @@ model.summary()
 
 <img width="150" src="./img/model.h5.png"/>
 
-### 2.7 准确率和损失值的可视化
+### 2.7 可视化准确率和损失值
 
+我们在使用 `model.fit()` 函数进行训练时，同步记录了训练集和测试集的损失和准确率，并且将历史记录另存为字典，以备日后绘制损失或准确率时使用。
+
+```python
+with open(root_path + "/history_fit.json", "w") as json_file:
+    json_file.write(str(history_fit))
+```
+
+进行准确率和损失值的可视化，就是将 `acc` 和 `loss` 使用 matplotlib Python 库画出来。
+
+```python
+# 使用 history 将训练集和测试集的 acc 和 loss 调出来
+acc = history_fit.history['accuracy']                # 训练集准确率
+val_acc = history_fit.history['val_accuracy']        # 测试集准确率
+loss = history_fit.history['loss']                   # 训练集损失值
+val_loss = history_fit.history['val_loss']           # 测试集损失值
+```
+
+分别对训练集与测试集的准确率对比、以及训练集与与测试集的损失值对比进行画图 ——
+
+```python
+epochs = range(1, len(acc) + 1) 
+plt.figure("acc")
+plt.plot(epochs, acc, 'r-', label='Training acc')
+plt.plot(epochs, val_acc, 'b', label='validation acc')
+plt.title('The comparision of train_acc and val_acc')
+plt.legend()
+plt.show()
+
+plt.figure("loss")
+plt.plot(epochs, loss, 'r-', label='Training loss')
+plt.plot(epochs, val_loss, 'b', label='validation loss')
+plt.title('The comparision of train_loss and val_loss')
+plt.legend()
+plt.show()
+```
+
+得到模型训练过程中，训练集与测试集准确率与损失值的可视化数据。
+
+![](./img/acc.png)![](./img/loss.png)
 
 原创制作：[广州跨象乘云软件技术有限公司](https://www.080910t.com/)（版权所有，不得转载）
