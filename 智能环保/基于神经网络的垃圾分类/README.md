@@ -195,7 +195,7 @@ plt.show()
 - 一组损失和指标（通过编译模型或通过调用 `add_loss()` 或 `add_metric()` 来定义）
 
 可以通过 Keras API 将这些组件一次性保存到磁盘，或仅选择性地保存其中一些组件：
-- **仅保存架构/配置。通常保存为 JSON 文件。** 
+#### 3.1.1 仅保存架构/配置。通常保存为 JSON 文件。
 
 ```python
 model_json=model.to_json()
@@ -203,19 +203,29 @@ with open(root_path+'/model_json.json', "w") as json_file:
     json_file.write(model_json)
 ```
 
-- **仅保存权重值。通常在训练模型时使用。**
+#### 3.1.2 仅保存权重值。通常在训练模型时使用。**
 
 ```python
 model.save_weights(root_path+'/model_weight.h5')
 ```
 
-- **将所有内容以 TensorFlow SavedModel 格式（或较早的 Keras H5 格式）保存到单个归档。这是标准做法。**
+#### 3.1.3 将所有内容以 TensorFlow SavedModel 格式（或较早的 Keras H5 格式）保存到单个归档。这是标准做法。**
 
 ```python
 model.save(root_path+'/model.h5')
 ```
 ### 3.2 加载模型
 
+将上一步保存的模型架构与权重值重新加载。
 
+```python
+json_file = open(root_path + '/model_json.json')    # 加载模型结构文件
+loaded_model_json = json_file.read()
+json_file.close()
+model = model_from_json(loaded_model_json)          # 结构文件转化为模型
+
+# 加载权重
+model.load_weights(root_path + '/model_weight.h5')  # h5文件保存模型的权重数据
+```
 
 原创制作：[广州跨象乘云软件技术有限公司](https://www.080910t.com/)（版权所有，不得转载）
