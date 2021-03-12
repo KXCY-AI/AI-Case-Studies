@@ -12,7 +12,7 @@
 - **帮助学生掌握模型评估常用手段：** 通过数据绘图，实现模型评估常用指标：准确率和损失值的可视化评估。
 - **帮助学生掌握模型测试与推理方法：** 通过对完成训练后的模型进行部署与加载，使用训练/测试集以外的第三方图片进行推理验证。
 
-作为第一个分享案例，我们并不大打算从一开始就聚焦于编码细节或者数学公式，而是希望通过本案例，向大家介绍相关技术的历史及背景知识。
+作为第一个分享案例，我们并不大打算从一开始就聚焦于编码细节或者数学公式，而是希望通过本案例，介绍相关技术的背景知识以及基本原理。
 
 ## 案例依赖库
 本案例主要采用 tf.keras 进行 TensorFlow 深度神经网络模型构建。Keras 最初是由 Google AI 开发人员/研究人员 Francois Chollet 创建并开发的。Francois 于 2015 年 3 月 27 日将 Keras 的第一个版本 commit 并 release 到他的 [GitHub](https://github.com/fchollet)。一开始，Francois 开发 Keras 是为了方便他自己的研究和实验。但是，随着深度学习的普及，许多开发人员、程序员和机器学习从业人员都因其易于使用的 API 而涌向 Keras。
@@ -81,28 +81,31 @@ Sequential 模型字面上的翻译是顺序模型，给人的第一感觉是那
 ```python
 model.add(Conv2D(filters=32, kernel_size=3, padding='same', activation='relu', input_shape=(300, 300, 3)))
 ```
-上面的代码中，输入层是卷积层，其获取 `300 ，300，3` 的输入图像。
+上面的代码中，输入层是卷积神经网络使用最常见的二维卷积层，它有高和宽两个空间维度，常用来处理图像数据。其获取 `300 ，300，3` 的输入图像 —— `300` x `300` RGB `3` 通道。
 
 ### 2.2 添加最大池化层
 ```python
 model.add(MaxPooling2D(pool_size=2))
 ```
+池化过程在一般卷积过程后。池化（pooling） 的本质，其实就是采样。Pooling 对于输入的 Feature Map，选择某种方式对其进行降维压缩，以加快运算速度。上面的代码中，我们采用应用较多的一种池化过程叫最大池化（Max Pooling）。
 
 ### 2.3 添加展平层（Flatten）
 ```python
 model.add(Flatten())
 ```
+展平层用于输入层或者卷积层和全连接层中间，其目的在于将数据展平为适合神经网络的结构。
 
 ### 2.4 添加全连接层
 ```python
 model.add(Dense(64, activation='relu'))
 ```
+全连接层在整个网络卷积神经网络中起到『分类器』的作用，把特征整合到一起，交给最后的分类器或者回归。
+
 ### 2.5 输出模型各层参数
 最后，通过 `model.summary()` 输出模型概述信息，其中最重要的信息是模型各层的参数状况，在本案例中，我们的模型共有 `711,110` 个参数。
 ```python
 model.summary()
 ```
-
 ![](./img/Parameters.PNG)
 
 如果你对如何计算各层参数感兴趣，可以参考[这个帖子](https://stackoverflow.com/questions/44608552/keras-cnn-model-parameters-calculation)，同时，关于 sequential 模型完整的模型说明可以查阅 Keras 的[文档](https://keras.io/zh/getting-started/sequential-model-guide/)。
