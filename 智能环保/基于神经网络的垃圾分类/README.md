@@ -125,8 +125,8 @@ model.summary()
 
 ```python
 model.compile(loss='categorical_crossentropy',      # 应用 categorical_crossentropy 损失函数
-                   optimizer='adam',#sgd 'adam'     # 应用 Adam 优化器
-                   metrics=['accuracy'])            # 应用 Accuracy 评估函数，评估当前训练模型的性能
+                    optimizer='adam',#sgd 'adam'    # 应用 Adam 优化器
+                    metrics=['accuracy'])           # 应用 Accuracy 评估函数，评估当前训练模型的性能
 ```
 
 - 损失函数/代价函数是机器学习、统计学、概率学等涉及到数理知识的研究中的基础概念，具体来说，损失函数计算单个训练样本的误差，代价函数是整个训练集的损失函数的平均。但一般来说对两者不做过多区分。`categorical_crossentropy` 损失函数一般用于多分类问题，与本案例垃圾分类的场景符合。除了 `categorical_crossentropy` 损失函数，你还可以使用更多的优化器，详情可查阅 [Keras 文档](https://keras.io/zh/losses/)。
@@ -187,12 +187,12 @@ plt.show()
 
 ## 3. 模型测试
 本案例同时演示了几种常见的深度神经网络模型的保存方法。首先，你需要了解 Keras 模型由多个组件组成：
-
 - 架构或配置，它指定模型包含的层及其连接方式
 - 一组权重值（即：模型的状态）
 - 优化器（通过编译模型来定义）
 - 一组损失和指标（通过编译模型或通过调用 `add_loss()` 或 `add_metric()` 来定义）
 
+可以通过 Keras API 将这些组件一次性保存到磁盘，或仅选择性地保存其中一些组件：
 
 
 
