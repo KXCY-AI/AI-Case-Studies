@@ -117,7 +117,33 @@ model.summary()
 
 <img width="150" src="./img/model.h5.png"/>
 
-### 2.7 可视化准确率和损失值
+### 2.7 编译与训练网络
+
+编译模型需要定义两个参数：损失函数和优化器。
+
+本案例采用多分类损失函数 `categorical_crossentropy` 以及自适应矩估计（`adam`）优化器。
+
+```python
+model.compile(loss='categorical_crossentropy',      # 应用 categorical_crossentropy 损失函数
+                   optimizer='adam',#sgd 'adam'     # 应用 Adam 优化器
+                   metrics=['accuracy'])            # 应用 Accuracy 评估函数，评估当前训练模型的性能
+```
+
+- 损失函数/代价函数是机器学习、统计学、概率学等涉及到数理知识的研究中的基础概念，具体来说，损失函数计算单个训练样本的误差，代价函数是整个训练集的损失函数的平均。但一般来说对两者不做过多区分。`categorical_crossentropy` 损失函数一般用于多分类问题，与本案例垃圾分类的场景符合。除了 `categorical_crossentropy` 损失函数，你还可以使用更多的优化器，详情可查阅 [Keras 文档](https://keras.io/zh/losses/)。
+
+- 优化器是提供了一个可以使用各种优化算法的接口，可以让用户直接调用一些经典的优化算法，令模型求出最优解。`Adam` 算法，即一种对随机目标函数执行一阶梯度优化的算法，该算法基于适应性低阶矩估计。除了 `Adam` 优化器，你还可以使用更多的优化器，详情可查阅 [Keras 文档](https://keras.io/zh/optimizers/)。
+
+之后，便可以对网络进行训练：
+
+```python
+history_fit = model.fit_generator(train_generator,
+                                  epochs=100,                       # 迭代总轮数
+                                  steps_per_epoch=2276//32,         # generator 产生的总步数（批次样本）
+                                  validation_data=val_generator,    # 验证数据的生成器
+                                  validation_steps=251//32)
+```
+
+### 2.8 可视化准确率和损失值
 
 我们在使用 `model.fit()` 函数进行训练时，同步记录了训练集和测试集的损失和准确率，并且将历史记录另存为字典，以备日后绘制损失或准确率时使用。
 
