@@ -186,13 +186,35 @@ plt.show()
 ![](./img/acc.png)![](./img/loss.png)
 
 ## 3. 模型测试
-本案例同时演示了几种常见的深度神经网络模型的保存方法。首先，你需要了解 Keras 模型由多个组件组成：
+
+### 3.1 保存模型
+模型测试前，首先要保存并重加载模型。本案例同时演示了几种常见的深度神经网络模型的保存方法。首先，你需要了解 Keras 模型由多个组件组成：
 - 架构或配置，它指定模型包含的层及其连接方式
 - 一组权重值（即：模型的状态）
 - 优化器（通过编译模型来定义）
 - 一组损失和指标（通过编译模型或通过调用 `add_loss()` 或 `add_metric()` 来定义）
 
 可以通过 Keras API 将这些组件一次性保存到磁盘，或仅选择性地保存其中一些组件：
+- **仅保存架构/配置。通常保存为 JSON 文件。** 
+
+```python
+model_json=model.to_json()
+with open(root_path+'/model_json.json', "w") as json_file:
+    json_file.write(model_json)
+```
+
+- **仅保存权重值。通常在训练模型时使用。**
+
+```python
+model.save_weights(root_path+'/model_weight.h5')
+```
+
+- **将所有内容以 TensorFlow SavedModel 格式（或较早的 Keras H5 格式）保存到单个归档。这是标准做法。**
+
+```python
+model.save(root_path+'/model.h5')
+```
+### 3.2 加载模型
 
 
 
