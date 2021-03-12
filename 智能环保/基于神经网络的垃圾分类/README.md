@@ -202,18 +202,21 @@ model_json=model.to_json()
 with open(root_path+'/model_json.json', "w") as json_file:
     json_file.write(model_json)
 ```
+除了 JSON 格式，也可以被保存为 YAML 文件。
 
-#### 3.1.2 仅保存权重值。通常在训练模型时使用。**
+#### 3.1.2 仅保存权重值。通常在训练模型时使用。
 
 ```python
 model.save_weights(root_path+'/model_weight.h5')
 ```
 
-#### 3.1.3 将所有内容以 TensorFlow SavedModel 格式（或较早的 Keras H5 格式）保存到单个归档。这是标准做法。**
+#### 3.1.3 将所有内容以 TensorFlow SavedModel 格式（或较早的 Keras H5 格式）保存到单个归档。这是标准做法。
 
 ```python
 model.save(root_path+'/model.h5')
 ```
+加载回来可以使用 `load_model`。
+
 ### 3.2 加载模型
 
 将上一步保存的模型架构与权重值重新加载。
