@@ -113,7 +113,7 @@ model.summary()
 如果你对如何计算各层参数感兴趣，可以参考[这个帖子](https://stackoverflow.com/questions/44608552/keras-cnn-model-parameters-calculation)，同时，关于 sequential 模型完整的模型说明可以查阅 Keras 的[文档](https://keras.io/zh/getting-started/sequential-model-guide/)。
 
 ### 2.6 模型结构
-由下图可以看出，最后我们得到了一个：二维卷积（输入）-> 最大池化 -> 二维卷积 -> 最大池化 -> 二维卷积 -> 最大池化 -> 二维卷积 -> 最大池化 - 展平 -> 全连接 -> 全连接（输出）的深度神经网络结构。之后对其进行编译、训练与评估。[点击查看原图](./img/model.h5.png)
+由下图可以看出，最后我们得到了一个：二维卷积（输入）-> 最大池化 -> 二维卷积 -> 最大池化 -> 二维卷积 -> 最大池化 -> 二维卷积 -> 最大池化 - 展平 -> 全连接 -> 全连接（输出）的深度神经网络结构。之后对其进行编译、训练与评估。[点击查看原图](./img/model.h5.png)。
 
 <img width="150" src="./img/model.h5.png"/>
 
@@ -202,7 +202,7 @@ model_json=model.to_json()
 with open(root_path+'/model_json.json', "w") as json_file:
     json_file.write(model_json)
 ```
-保存后的 JSON 具有结构化，可以通过 JSON 解析器查看：
+保存后的 JSON 具有结构化，可以通过 JSON 解析器查看：[点击查看原图](./img/JSON.PNG)。
 
 <img width="487" src="./img/JSON.PNG"/>
 
