@@ -111,7 +111,7 @@ model.summary()
 如果你对如何计算各层参数感兴趣，可以参考[这个帖子](https://stackoverflow.com/questions/44608552/keras-cnn-model-parameters-calculation)，同时，关于 sequential 模型完整的模型说明可以查阅 Keras 的[文档](https://keras.io/zh/getting-started/sequential-model-guide/)。
 
 ### 2.6 模型结构
-由下图可以看出，最后我们得到了一个：二维卷积（输入）-> 最大池化 -> 二维卷积 -> 最大池化 -> 二维卷积 -> 最大池化 -> 二维卷积 -> 最大池化 - 展平 -> 全连接 -> 全连接（输出）的深度神经网络结构。
+由下图可以看出，最后我们得到了一个：二维卷积（输入）-> 最大池化 -> 二维卷积 -> 最大池化 -> 二维卷积 -> 最大池化 -> 二维卷积 -> 最大池化 - 展平 -> 全连接 -> 全连接（输出）的深度神经网络结构。之后对其进行编译、训练与评估。
 
 ![](./img/model.h5.png)
 
