@@ -5,6 +5,8 @@
 
 本次项目使用的数据集包括硬纸板、玻璃制品、金属、纸制品、塑料和废物垃圾等 6 种常见的生活垃圾共计 `2,247` 张。项目分为三部分。数据处理、模型建立和模型测试。经过迭代模型在训练集上准确率达到 `89.89%` 左右，在验证集上准确率达到 `77.68%` 左右。
 
+<img width="487" src="./img/trainingset.PNG"/>
+
 本案例适合作为深度学习实践课程配套教学案例，能够达到以下教学效果：
 
 - **提升学生数据预处理能力：** 通过对样本图片进行缩放、翻转、选择等操作对样本进行扩充，使得样本数据更加丰富，有利于模型性能的提高。
@@ -69,12 +71,12 @@ train_datagen = ImageDataGenerator(
 
 ![](./img/datagen.png)
 ## 2. 构建 sequential 模型
-keras中的主要数据结构是model（模型），它提供定义完整计算图的方法。通过将图层添加到现有模型/计算图，我们可以构建出复杂的神经网络。Keras有两种不同的构建模型的方法：
+keras 中的主要数据结构是 model（模型），它提供定义完整计算图的方法。通过将图层添加到现有模型/计算图，我们可以构建出复杂的神经网络。Keras 有两种不同的构建模型的方法：
 
-1. Sequential models
-2. Functional API
+1. Sequential models（Sequential 顺序/序贯模型）
+2. Functional API（使用函数式 API 的 Model 类模型）
 
-Sequential 模型字面上的翻译是顺序模型，给人的第一感觉是那种简单的线性模型，但实际上 Sequential 模型可以构建非常复杂的神经网络，包括全连接神经网络、卷积神经网络(CNN)、循环神经网络(RNN)、等等。这里的 Sequential 更准确的应该理解为堆叠，通过堆叠许多层，构建出深度神经网络。Sequential 模型的核心操作是添加 layers（图层）。本案例中，我们还将一些流行的图层添加到模型中：
+除了这两类模型之外，你还可以通过继承 `Model` 类并在 `call` 方法中实现你自己的前向传播，以创建你自己的完全定制化的模型，这里我们不讨论。Sequential 模型字面上的翻译是顺序模型，给人的第一感觉是那种简单的线性模型，但实际上 Sequential 模型可以构建非常复杂的神经网络，包括全连接神经网络、卷积神经网络(CNN)、循环神经网络(RNN)、等等。这里的 Sequential 更准确的应该理解为堆叠，通过堆叠许多层，构建出深度神经网络。Sequential 模型的核心操作是添加 layers（图层）。本案例中，我们还将一些流行的图层添加到模型中：
 
 ### 2.1 添加卷积层（输入层）
 从我们所学习到的机器学习知识可以知道，机器学习通常包括定义模型、定义优化目标、输入数据、训练模型，最后通常还需要使用测试数据评估模型的性能。keras 中的 Sequential 模型构建也包含这些步骤。首先，网络的第一层是输入层，读取训练数据。为此，我们需要指定为网络提供的训练数据的大小，这里 `input_shape` 参数用于指定输入数据的形状：
@@ -115,7 +117,33 @@ model.summary()
 
 <img width="150" src="./img/model.h5.png"/>
 
-### 2.7 可视化准确率和损失值
+### 2.7 编译与训练网络
+
+编译模型需要定义两个参数：损失函数和优化器。
+
+本案例采用多分类损失函数 `categorical_crossentropy` 以及自适应矩估计（`adam`）优化器。
+
+```python
+model.compile(loss='categorical_crossentropy',      # 应用 categorical_crossentropy 损失函数
+                    optimizer='adam',#sgd 'adam'    # 应用 Adam 优化器
+                    metrics=['accuracy'])           # 应用 Accuracy 评估函数，评估当前训练模型的性能
+```
+
+- 损失函数/代价函数是机器学习、统计学、概率学等涉及到数理知识的研究中的基础概念，具体来说，损失函数计算单个训练样本的误差，代价函数是整个训练集的损失函数的平均。但一般来说对两者不做过多区分。`categorical_crossentropy` 损失函数一般用于多分类问题，与本案例垃圾分类的场景符合。除了 `categorical_crossentropy` 损失函数，你还可以使用更多的优化器，详情可查阅 [Keras 文档](https://keras.io/zh/losses/)。
+
+- 优化器是提供了一个可以使用各种优化算法的接口，可以让用户直接调用一些经典的优化算法，令模型求出最优解。`Adam` 算法，即一种对随机目标函数执行一阶梯度优化的算法，该算法基于适应性低阶矩估计。除了 `Adam` 优化器，你还可以使用更多的优化器，详情可查阅 [Keras 文档](https://keras.io/zh/optimizers/)。
+
+之后，便可以对网络进行训练：
+
+```python
+history_fit = model.fit_generator(train_generator,
+                                  epochs=100,                       # 迭代总轮数
+                                  steps_per_epoch=2276//32,         # generator 产生的总步数（批次样本）
+                                  validation_data=val_generator,    # 验证数据的生成器
+                                  validation_steps=251//32)
+```
+
+### 2.8 可视化准确率和损失值
 
 我们在使用 `model.fit()` 函数进行训练时，同步记录了训练集和测试集的损失和准确率，并且将历史记录另存为字典，以备日后绘制损失或准确率时使用。
 
@@ -156,5 +184,61 @@ plt.show()
 得到模型训练过程中，训练集与测试集准确率与损失值的可视化数据。
 
 ![](./img/acc.png)![](./img/loss.png)
+
+## 3. 模型测试
+
+### 3.1 保存模型
+模型测试前，首先要保存并重加载模型。本案例同时演示了几种常见的深度神经网络模型的保存方法。首先，你需要了解 Keras 模型由多个组件组成：
+- 架构或配置，它指定模型包含的层及其连接方式
+- 一组权重值（即：模型的状态）
+- 优化器（通过编译模型来定义）
+- 一组损失和指标（通过编译模型或通过调用 `add_loss()` 或 `add_metric()` 来定义）
+
+可以通过 Keras API 将这些组件一次性保存到磁盘，或仅选择性地保存其中一些组件：
+#### 3.1.1 仅保存架构/配置。通常保存为 JSON 文件。
+
+```python
+model_json=model.to_json()
+with open(root_path+'/model_json.json', "w") as json_file:
+    json_file.write(model_json)
+```
+除了 JSON 格式，也可以被保存为 YAML 文件。
+
+#### 3.1.2 仅保存权重值。通常在训练模型时使用。
+
+```python
+model.save_weights(root_path+'/model_weight.h5')
+```
+
+#### 3.1.3 将所有内容以 TensorFlow SavedModel 格式（或较早的 Keras H5 格式）保存到单个归档。这是标准做法。
+
+```python
+model.save(root_path+'/model.h5')
+```
+加载回来可以使用 `load_model`。
+
+### 3.2 加载模型
+
+将上一步保存的模型架构与权重值重新加载。
+
+```python
+json_file = open(root_path + '/model_json.json')    # 加载模型结构文件
+loaded_model_json = json_file.read()
+json_file.close()
+model = model_from_json(loaded_model_json)          # 结构文件转化为模型
+
+# 加载权重
+model.load_weights(root_path + '/model_weight.h5')  # h5文件保存模型的权重数据
+```
+关于 Keras 模型的保存/加载，可以进一步查阅 Keras 文档的[详细说明](https://keras.io/zh/getting-started/faq/#how-can-i-save-a-keras-model)。
+
+### 3.3 模型测试
+
+最后，我们从 test_data 目录下选取训练集以外的图片让模型进行推理预测，测试模型的性能，详情可查看代码。
+
+<img width="150" src="./test_data/cardboard.jpg"/> <img width="150" src="./test_data/glass.jpg"/> <img width="150" src="./test_data/paper.jpg"/> <img width="150" src="./test_data/plastic.jpg"/> <img width="150" src="./test_data/trash.jpg"/>
+
+## 4. 总结
+本案例介绍如何利用数据增强，尽可能的在数据样本量较少的情况下进行深度学习训练。而数据增强仅仅是解决这类困难的其中一种手段，我们还可以使用迁移学习与调优，或者生成模型等技术来进一步更好的解决这个问题。同时，案例演示了如何在 TensorFlow 2.0 上加载 Keras，并利用 Keras 高阶 API 构建 sequential 深度神经网络，并对其进行训练、评估、保存、加载、以及预测推理。从结果显示可以看到，模型的准确率还有待提高，其中一个很主要的原因是数据量比较少（尽管我们已经使用了数据增强等手段），而且从准确率和损失值的变化图可以看到，迭代次数应当适当的提高。我们将提升模型表现的思路留给各位，希望能训练出鲁棒性更强的垃圾分类模型。
 
 原创制作：[广州跨象乘云软件技术有限公司](https://www.080910t.com/)（版权所有，不得转载）
