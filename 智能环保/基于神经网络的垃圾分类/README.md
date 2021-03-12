@@ -202,7 +202,11 @@ model_json=model.to_json()
 with open(root_path+'/model_json.json', "w") as json_file:
     json_file.write(model_json)
 ```
-除了 JSON 格式，也可以被保存为 YAML 文件。
+保存后的 JSON 具有结构化，可以通过 JSON 解析器查看：
+
+<img width="487" src="./img/JSON.PNG"/>
+
+另外，除了 JSON 格式，也可以被保存为 YAML 文件。
 
 #### 3.1.2 仅保存权重值。通常在训练模型时使用。
 
