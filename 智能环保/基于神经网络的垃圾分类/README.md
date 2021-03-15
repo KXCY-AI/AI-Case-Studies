@@ -18,6 +18,8 @@
 - **帮助学生掌握模型测试与推理方法：** 通过对完成训练后的模型进行部署与加载，使用训练/测试集以外的第三方图片进行推理验证。
 
 作为第一个分享案例，我们并不大打算从一开始就聚焦于编码细节或者数学公式，而是希望通过本案例，介绍相关技术的背景知识以及基本原理。
+## 案例流程
+![](./img/process.png)
 
 ## 案例依赖库
 本案例主要采用 tf.keras 进行 TensorFlow 深度神经网络模型构建。Keras 最初是由 Google AI 开发人员/研究人员 Francois Chollet 创建并开发的。Francois 于 2015 年 3 月 27 日将 Keras 的第一个版本 commit 并 release 到他的 [GitHub](https://github.com/fchollet)。一开始，Francois 开发 Keras 是为了方便他自己的研究和实验。但是，随着深度学习的普及，许多开发人员、程序员和机器学习从业人员都因其易于使用的 API 而涌向 Keras。
