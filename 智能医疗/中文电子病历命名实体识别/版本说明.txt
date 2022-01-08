@@ -1,5 +1,0 @@
-Keras == 2.2.0
-keras-contrib == 2.0.8
-numpy == 1.16.4
-h5py == 2.10.0
-tensorflow == 1.10.0
